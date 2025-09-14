@@ -3,17 +3,32 @@ name: Generate ASCII Artwork
 on: push
 
 jobs:
-    ascii_job:
+    build_job:
+        run-on: ubuntu-latest
+        steps:
+            - name: Install Cowsay Program
+              run: sudo apt-getinstall cowsay -y
+
+            - name: Execute Cowsay CMD
+              run: cow-f dragon "Run forcove, Iama DRAGON...RAWR" >> dragon.txt
+
+            - name: Sleep for 30 seconds
+              run: sleep 30
+
+    test_job:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout Repo
-              uses: actions/checkout@v4
+            - name: Sleepfor 10 seconds
+              run: sleep 10
 
-            - name: Checkout Repos File
-              run: ls -ltra
+            - name: Test File Exists
+              run: grep -i  "dragon" dragon.txt
 
-            - name: Executing Shell Script
-              run: | 
-                chmod +x ascii-script.sh
-                ./ascii-script.sh
+    deploy_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Read fle
+              run: cat dragon.txt
 
+            - name: Deploy
+              run: echo Depolying..........
